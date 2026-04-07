@@ -53,7 +53,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 32px;
+    }
+
+    .logo-left, .logo-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-left {
+      justify-content: flex-end;
+      padding-right: 24px;
+    }
+
+    .logo-right {
+      justify-content: flex-start;
+      padding-left: 24px;
     }
 
     .logo {
@@ -62,10 +77,16 @@
       object-fit: contain;
     }
 
+    .logo-gsl {
+      height: 56px;
+      max-width: 200px;
+    }
+
     .logo-divider {
       width: 1px;
-      height: 32px;
+      height: 40px;
       background: var(--border);
+      flex-shrink: 0;
     }
 
     /* Hero */
@@ -361,9 +382,11 @@
     /* Responsive */
     @media (max-width: 600px) {
       .header { padding: 16px; }
-      .header-inner { gap: 20px; }
-      .logo { height: 32px; max-width: 120px; }
-      .logo-divider { height: 24px; }
+      .logo { height: 28px; max-width: 110px; }
+      .logo-gsl { height: 44px; max-width: 160px; }
+      .logo-left { padding-right: 16px; }
+      .logo-right { padding-left: 16px; }
+      .logo-divider { height: 32px; }
       .hero { padding: 40px 16px 32px; }
       .hero p { font-size: 15px; }
       .modules { padding: 0 16px 48px; gap: 16px; }
@@ -380,9 +403,13 @@
   <!-- Header with logos -->
   <header class="header">
     <div class="header-inner">
-      <img src="assets/astralogo.avif" alt="Astra Studio" class="logo" id="logo-astra">
+      <div class="logo-left">
+        <img src="assets/astralogo.avif" alt="Astra Studio" class="logo" id="logo-astra">
+      </div>
       <div class="logo-divider"></div>
-      <img src="assets/gsllogo.jpeg" alt="Grupo Souza Leão" class="logo" id="logo-gsl">
+      <div class="logo-right">
+        <img src="assets/gsllogo.jpeg" alt="Grupo Souza Leão" class="logo logo-gsl" id="logo-gsl">
+      </div>
     </div>
   </header>
 
