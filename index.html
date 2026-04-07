@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 101 | Grupo Souza Leao + Astra Studio</title>
-  <meta name="description" content="Curso introdutorio de inteligencia artificial com Claude para o Grupo Souza Leao.">
+  <title>AI 101 | Grupo Souza Leão + Astra Studio</title>
+  <meta name="description" content="Curso introdutório de inteligência artificial com Claude para o Grupo Souza Leão.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -101,6 +101,21 @@
       background-clip: text;
     }
 
+    .hero-made-by {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .made-by-logo {
+      height: 20px;
+      object-fit: contain;
+    }
+
     .hero p {
       font-size: 16px;
       color: var(--text-secondary);
@@ -174,18 +189,21 @@
     }
 
     .module-number {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 10px;
       background: var(--accent-glow);
       border: 1px solid rgba(2, 125, 252, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--accent-light);
       flex-shrink: 0;
+    }
+
+    .module-number svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent);
     }
 
     .module-info {
@@ -362,17 +380,18 @@
   <!-- Header with logos -->
   <header class="header">
     <div class="header-inner">
-      <img src="assets/logo-astra.png" alt="Astra Studio" class="logo" id="logo-astra">
+      <img src="assets/astralogo.avif" alt="Astra Studio" class="logo" id="logo-astra">
       <div class="logo-divider"></div>
-      <img src="assets/logo-gruposl.png" alt="Grupo Souza Leao" class="logo" id="logo-gsl">
+      <img src="assets/gsllogo.jpeg" alt="Grupo Souza Leão" class="logo" id="logo-gsl">
     </div>
   </header>
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-badge">Programa de Capacitacao</div>
+    <div class="hero-badge">Capacitação em IA</div>
     <h1>AI 101 com Claude</h1>
-    <p>Aprenda a usar inteligencia artificial no seu dia a dia de trabalho. Videos curtos, direto ao ponto.</p>
+    <div class="hero-made-by">Made by <img src="assets/astralogo.avif" alt="Astra Studio" class="made-by-logo"></div>
+    <p>Aprenda a usar o Claude no seu dia a dia de trabalho. 7 vídeos curtos, ~5 minutos cada, direto ao ponto.</p>
   </section>
 
   <!-- Progress -->
@@ -381,7 +400,7 @@
       <div class="progress-bar-fill" id="progress-fill"></div>
     </div>
     <div class="progress-label">
-      <span id="progress-text">0 de 0 concluidos</span>
+      <span id="progress-text">0 de 0 concluídos</span>
       <span id="progress-percent">0%</span>
     </div>
   </section>
@@ -393,7 +412,7 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <p>Feito por <a href="https://astrastudio.io" target="_blank" rel="noopener">Astra Studio</a> para o Grupo Souza Leao</p>
+    <p>Feito por <a href="https://astrastudio.io" target="_blank" rel="noopener">Astra Studio</a> para o Grupo Souza Leão</p>
   </footer>
 
   <script>
@@ -402,39 +421,45 @@
     // =============================================
     const modules = [
       {
-        title: "O que e inteligencia artificial?",
-        desc: "Uma introducao pratica ao conceito de IA e por que isso importa no seu trabalho.",
-        // Replace with your video embed URL or leave empty for placeholder
+        title: "Primeiros Passos",
+        desc: "Introdução à interface do Claude: como navegar, iniciar conversas, configurar preferências de resposta e compartilhar uma conversa com colegas via link.",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>',
         video: ""
       },
       {
-        title: "Conhecendo o Claude",
-        desc: "Como acessar, criar conta e navegar pela interface do Claude gratuito.",
+        title: "Projetos",
+        desc: "Como criar e usar Projetos para organizar o Claude por área de trabalho — com instruções fixas de contexto e arquivos de referência carregados.",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
         video: ""
       },
       {
-        title: "Escrevendo bons prompts",
-        desc: "Tecnicas simples para conseguir respostas melhores e mais uteis do Claude.",
+        title: "Connectors",
+        desc: "Como conectar o Claude ao Google Drive, Gmail e Google Calendar para buscar arquivos, resumir threads de e-mail e consultar agenda sem sair da conversa.",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
         video: ""
       },
       {
-        title: "Claude no dia a dia: emails e textos",
-        desc: "Use o Claude para redigir, revisar e melhorar emails e comunicacoes profissionais.",
+        title: "Skills",
+        desc: "Como usar a feature de Skills do Claude — o que são, como ativar e como aplicar em tarefas do dia a dia financeiro, com exemplos práticos de uso.",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
         video: ""
       },
       {
-        title: "Claude no dia a dia: planilhas e dados",
-        desc: "Como pedir ajuda ao Claude para analisar dados, criar formulas e organizar informacoes.",
+        title: "Criando Documentos Word",
+        desc: "Como gerar documentos .docx prontos para usar — relatórios, comunicados, atas e modelos formatados, sem precisar abrir o Word do zero.",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',
         video: ""
       },
       {
-        title: "Claude no dia a dia: resumos e pesquisa",
-        desc: "Resuma documentos longos, pesquise temas e extraia as informacoes que importam.",
+        title: "Criando Apresentações",
+        desc: "Como usar o Claude para montar apresentações em PowerPoint — estrutura de slides, conteúdo e formatação gerados a partir de uma descrição simples.",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
         video: ""
       },
       {
-        title: "Boas praticas e cuidados",
-        desc: "O que nao compartilhar, como checar respostas e usar IA de forma responsavel.",
+        title: "Criando Planilhas",
+        desc: "Como pedir ao Claude para gerar planilhas Excel prontas — tabelas, fórmulas e estruturas de controle financeiro criadas diretamente para download.",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>',
         video: ""
       }
     ];
@@ -462,7 +487,7 @@
       const pct = total > 0 ? Math.round((done / total) * 100) : 0;
 
       document.getElementById('progress-fill').style.width = pct + '%';
-      document.getElementById('progress-text').textContent = `${done} de ${total} concluido${done !== 1 ? 's' : ''}`;
+      document.getElementById('progress-text').textContent = `${done} de ${total} concluído${done !== 1 ? 's' : ''}`;
       document.getElementById('progress-percent').textContent = pct + '%';
     }
 
@@ -475,13 +500,13 @@
           ? `<div class="video-container"><iframe src="${mod.video}" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe></div>`
           : `<div class="video-container"><div class="video-placeholder">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              <span>Video em breve</span>
+              <span>Vídeo em breve</span>
             </div></div>`;
 
         return `
           <div class="module-card" id="module-${i}">
             <div class="module-header" onclick="toggleModule(${i})">
-              <div class="module-number">${i + 1}</div>
+              <div class="module-number">${mod.icon}</div>
               <div class="module-info">
                 <div class="module-title">${mod.title}</div>
                 <div class="module-desc">${mod.desc}</div>
@@ -494,7 +519,7 @@
               <div class="video-wrapper">${videoHTML}</div>
               <label class="module-check">
                 <input type="checkbox" ${checked} onchange="markComplete(${i}, this.checked)">
-                Marcar como concluido
+                Marcar como concluído
               </label>
             </div>
           </div>`;
