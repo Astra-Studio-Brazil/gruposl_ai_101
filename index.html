@@ -421,6 +421,12 @@
     // =============================================
     const modules = [
       {
+        title: "Comece Aqui!",
+        desc: "Introdução ao programa AI 101 — o que você vai aprender, como funciona e por onde começar.",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+        video: "videos/introgslai101.mp4"
+      },
+      {
         title: "Primeiros Passos",
         desc: "Introdução à interface do Claude: como navegar, iniciar conversas, configurar preferências de resposta e compartilhar uma conversa com colegas via link.",
         icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>',
@@ -496,12 +502,17 @@
 
       container.innerHTML = modules.map((mod, i) => {
         const checked = progress[i] ? 'checked' : '';
-        const videoHTML = mod.video
-          ? `<div class="video-container"><iframe src="${mod.video}" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe></div>`
-          : `<div class="video-container"><div class="video-placeholder">
+        let videoHTML;
+        if (mod.video && mod.video.match(/\.(mp4|webm|ogg)$/i)) {
+          videoHTML = `<div class="video-container"><video controls preload="metadata" playsinline><source src="${mod.video}" type="video/${mod.video.split('.').pop()}"></video></div>`;
+        } else if (mod.video) {
+          videoHTML = `<div class="video-container"><iframe src="${mod.video}" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe></div>`;
+        } else {
+          videoHTML = `<div class="video-container"><div class="video-placeholder">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
               <span>Vídeo em breve</span>
             </div></div>`;
+        }
 
         return `
           <div class="module-card" id="module-${i}">
