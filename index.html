@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 101 | Grupo Souza Leao + Astra Studio</title>
+  <meta name="description" content="Curso introdutorio de inteligencia artificial com Claude para o Grupo Souza Leao.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a26;
+      --bg-card-hover: #22222f;
+      --text-primary: #f0f0f5;
+      --text-secondary: #a0a0b8;
+      --text-muted: #6b6b80;
+      --accent: #8b5cf6;
+      --accent-light: #a78bfa;
+      --accent-glow: rgba(139, 92, 246, 0.15);
+      --border: #2a2a3a;
+      --radius: 12px;
+      --radius-lg: 16px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    .header {
+      padding: 24px 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-secondary);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(18, 18, 26, 0.85);
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+
+    .logo {
+      height: 40px;
+      max-width: 160px;
+      object-fit: contain;
+    }
+
+    .logo-divider {
+      width: 1px;
+      height: 32px;
+      background: var(--border);
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 64px 20px 48px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 100px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      color: var(--accent-light);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* Progress bar */
+    .progress-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 20px 32px;
+    }
+
+    .progress-bar-container {
+      background: var(--bg-card);
+      border-radius: 100px;
+      height: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: 100px;
+      transition: width 0.5s ease;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Modules */
+    .modules {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 20px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .module-card:hover {
+      border-color: rgba(139, 92, 246, 0.4);
+      background: var(--bg-card-hover);
+    }
+
+    .module-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .module-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent-light);
+      flex-shrink: 0;
+    }
+
+    .module-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .module-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .module-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .module-toggle {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .module-toggle svg {
+      width: 20px;
+      height: 20px;
+      color: var(--text-muted);
+    }
+
+    .module-card.open .module-toggle {
+      transform: rotate(180deg);
+    }
+
+    .module-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .module-card.open .module-body {
+      max-height: 2000px;
+    }
+
+    .video-wrapper {
+      padding: 0 24px 24px;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--border);
+    }
+
+    .video-container iframe,
+    .video-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .video-placeholder svg {
+      width: 48px;
+      height: 48px;
+      opacity: 0.4;
+    }
+
+    .module-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 24px 20px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .module-check input[type="checkbox"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .module-check input[type="checkbox"]:checked {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .module-check input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: 6px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 32px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .footer a {
+      color: var(--accent-light);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header { padding: 16px; }
+      .header-inner { gap: 20px; }
+      .logo { height: 32px; max-width: 120px; }
+      .logo-divider { height: 24px; }
+      .hero { padding: 40px 16px 32px; }
+      .hero p { font-size: 15px; }
+      .modules { padding: 0 16px 48px; gap: 16px; }
+      .module-header { padding: 16px; gap: 12px; }
+      .module-title { font-size: 15px; }
+      .module-desc { font-size: 13px; }
+      .video-wrapper { padding: 0 16px 16px; }
+      .module-check { padding: 0 16px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header with logos -->
+  <header class="header">
+    <div class="header-inner">
+      <img src="assets/logo-astra.png" alt="Astra Studio" class="logo" id="logo-astra">
+      <div class="logo-divider"></div>
+      <img src="assets/logo-gruposl.png" alt="Grupo Souza Leao" class="logo" id="logo-gsl">
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">Programa de Capacitacao</div>
+    <h1>AI 101 com Claude</h1>
+    <p>Aprenda a usar inteligencia artificial no seu dia a dia de trabalho. Videos curtos, direto ao ponto.</p>
+  </section>
+
+  <!-- Progress -->
+  <section class="progress-section">
+    <div class="progress-bar-container">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+    <div class="progress-label">
+      <span id="progress-text">0 de 0 concluidos</span>
+      <span id="progress-percent">0%</span>
+    </div>
+  </section>
+
+  <!-- Modules -->
+  <section class="modules" id="modules-container">
+    <!-- Modules are rendered by JS below -->
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Feito por <a href="https://astrastudio.io" target="_blank" rel="noopener">Astra Studio</a> para o Grupo Souza Leao</p>
+  </footer>
+
+  <script>
+    // =============================================
+    // COURSE CONTENT — edit this array to add/update modules
+    // =============================================
+    const modules = [
+      {
+        title: "O que e inteligencia artificial?",
+        desc: "Uma introducao pratica ao conceito de IA e por que isso importa no seu trabalho.",
+        // Replace with your video embed URL or leave empty for placeholder
+        video: ""
+      },
+      {
+        title: "Conhecendo o Claude",
+        desc: "Como acessar, criar conta e navegar pela interface do Claude gratuito.",
+        video: ""
+      },
+      {
+        title: "Escrevendo bons prompts",
+        desc: "Tecnicas simples para conseguir respostas melhores e mais uteis do Claude.",
+        video: ""
+      },
+      {
+        title: "Claude no dia a dia: emails e textos",
+        desc: "Use o Claude para redigir, revisar e melhorar emails e comunicacoes profissionais.",
+        video: ""
+      },
+      {
+        title: "Claude no dia a dia: planilhas e dados",
+        desc: "Como pedir ajuda ao Claude para analisar dados, criar formulas e organizar informacoes.",
+        video: ""
+      },
+      {
+        title: "Claude no dia a dia: resumos e pesquisa",
+        desc: "Resuma documentos longos, pesquise temas e extraia as informacoes que importam.",
+        video: ""
+      },
+      {
+        title: "Boas praticas e cuidados",
+        desc: "O que nao compartilhar, como checar respostas e usar IA de forma responsavel.",
+        video: ""
+      }
+    ];
+
+    // =============================================
+    // RENDER & INTERACTIVITY
+    // =============================================
+    const container = document.getElementById('modules-container');
+    const STORAGE_KEY = 'ai101_progress';
+
+    function getProgress() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      } catch { return {}; }
+    }
+
+    function saveProgress(progress) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    }
+
+    function updateProgressBar() {
+      const progress = getProgress();
+      const done = modules.filter((_, i) => progress[i]).length;
+      const total = modules.length;
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+      document.getElementById('progress-fill').style.width = pct + '%';
+      document.getElementById('progress-text').textContent = `${done} de ${total} concluido${done !== 1 ? 's' : ''}`;
+      document.getElementById('progress-percent').textContent = pct + '%';
+    }
+
+    function renderModules() {
+      const progress = getProgress();
+
+      container.innerHTML = modules.map((mod, i) => {
+        const checked = progress[i] ? 'checked' : '';
+        const videoHTML = mod.video
+          ? `<div class="video-container"><iframe src="${mod.video}" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe></div>`
+          : `<div class="video-container"><div class="video-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Video em breve</span>
+            </div></div>`;
+
+        return `
+          <div class="module-card" id="module-${i}">
+            <div class="module-header" onclick="toggleModule(${i})">
+              <div class="module-number">${i + 1}</div>
+              <div class="module-info">
+                <div class="module-title">${mod.title}</div>
+                <div class="module-desc">${mod.desc}</div>
+              </div>
+              <div class="module-toggle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
+            <div class="module-body">
+              <div class="video-wrapper">${videoHTML}</div>
+              <label class="module-check">
+                <input type="checkbox" ${checked} onchange="markComplete(${i}, this.checked)">
+                Marcar como concluido
+              </label>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function toggleModule(index) {
+      const card = document.getElementById(`module-${index}`);
+      card.classList.toggle('open');
+    }
+
+    function markComplete(index, done) {
+      const progress = getProgress();
+      progress[index] = done;
+      saveProgress(progress);
+      updateProgressBar();
+    }
+
+    // Init
+    renderModules();
+    updateProgressBar();
+  </script>
+</body>
+</html>
