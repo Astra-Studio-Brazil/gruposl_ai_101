@@ -947,13 +947,6 @@
         lang: "en"
       },
       {
-        title: "Documentação oficial do Claude",
-        desc: "Referência completa da Anthropic sobre capacidades, boas práticas e exemplos de uso do Claude.",
-        url: "https://docs.claude.com/",
-        topic: "Documentação",
-        lang: "en"
-      },
-      {
         title: "From Hierarchy to Intelligence",
         desc: "Ensaio da Sequoia Capital defendendo que a IA pode substituir a hierarquia tradicional como mecanismo de coordenação nas empresas. Em vez de apenas aumentar produtividade, organizações como a Block estão se reestruturando em torno de modelos contínuos de operação, acelerando decisões sem camadas de gestão intermediária.",
         url: "https://sequoiacap.com/article/from-hierarchy-to-intelligence/",
@@ -965,6 +958,13 @@
         desc: "Tese da Sequoia Capital sobre a próxima geração de empresas de IA: em vez de vender ferramentas (copilots), as vencedoras vão vender o resultado final (autopilots). À medida que a IA fica capaz de executar trabalho cognitivo de ponta a ponta, o jogo deixa de ser \"vender a ferramenta\" e passa a ser \"vender o trabalho pronto\".",
         url: "https://sequoiacap.com/article/services-the-new-software/",
         topic: "Estratégia",
+        lang: "en"
+      },
+      {
+        title: "Documentação oficial do Claude",
+        desc: "Referência completa da Anthropic sobre capacidades, boas práticas e exemplos de uso do Claude.",
+        url: "https://docs.claude.com/",
+        topic: "Documentação",
         lang: "en"
       }
     ];
@@ -1005,7 +1005,7 @@
       if (ytId) {
         return `
           <div class="video-container video-yt" data-yt-url="${url}" role="button" tabindex="0" aria-label="Reproduzir ${title || 'vídeo'}">
-            <img class="yt-thumb" src="https://img.youtube.com/vi/${ytId}/maxresdefault.jpg" alt="${title || ''}" loading="lazy" onerror="this.src='https://img.youtube.com/vi/${ytId}/hqdefault.jpg'">
+            <img class="yt-thumb" src="https://img.youtube.com/vi/${ytId}/maxresdefault.jpg" alt="${title || ''}" loading="lazy" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${ytId}/hqdefault.jpg'">
             <button class="yt-play" aria-hidden="true">
               <svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="red"/><path d="M45 24L27 14v20" fill="white"/></svg>
             </button>
