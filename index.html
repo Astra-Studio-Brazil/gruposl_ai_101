@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI 101 | Grupo Souza Leão + Astra Studio</title>
-  <meta name="description" content="Curso introdutório de inteligência artificial com Claude para o Grupo Souza Leão.">
+  <meta name="description" content="Hub de capacitação em IA com Claude para o Grupo Souza Leão. Tutoriais, conteúdo estratégico e artigos selecionados.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -89,33 +89,54 @@
       flex-shrink: 0;
     }
 
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 64px 20px 48px;
-      max-width: 720px;
+    /* Layout (sidebar + content) */
+    .layout {
+      max-width: 1280px;
       margin: 0 auto;
+      padding: 40px 20px 64px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 96px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .content-area {
+      min-width: 0;
+    }
+
+    /* Sidebar hero */
+    .sidebar-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
     }
 
     .hero-badge {
       display: inline-block;
-      padding: 6px 16px;
+      padding: 5px 14px;
       border-radius: 100px;
       background: var(--accent-glow);
       border: 1px solid rgba(2, 125, 252, 0.2);
       color: var(--accent-light);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      margin-bottom: 24px;
     }
 
-    .hero h1 {
-      font-size: clamp(28px, 5vw, 44px);
+    .sidebar-hero h1 {
+      font-size: clamp(24px, 2.1vw, 30px);
       font-weight: 700;
       line-height: 1.15;
-      margin-bottom: 16px;
       background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -125,30 +146,61 @@
     .hero-made-by {
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
-      margin-bottom: 20px;
     }
 
     .made-by-logo {
-      height: 20px;
+      height: 18px;
       object-fit: contain;
     }
 
-    .hero p {
-      font-size: 16px;
+    .sidebar-hero p {
+      font-size: 14px;
       color: var(--text-secondary);
-      max-width: 520px;
-      margin: 0 auto;
+      line-height: 1.55;
     }
+
+    /* Tabs - vertical in sidebar */
+    .tabs-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      width: 100%;
+      text-align: left;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tab-btn:hover {
+      background: var(--bg-card-hover);
+      color: var(--accent);
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
 
     /* Progress bar */
     .progress-section {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 20px 32px;
+      margin-bottom: 28px;
     }
 
     .progress-bar-container {
@@ -176,14 +228,11 @@
       color: var(--text-muted);
     }
 
-    /* Modules */
+    /* Modules (Claude 101 tab) */
     .modules {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 20px 64px;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 20px;
     }
 
     .module-card {
@@ -191,22 +240,30 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       overflow: hidden;
-      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
       box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
     }
 
     .module-card:hover {
       border-color: rgba(2, 125, 252, 0.4);
-      background: var(--bg-card-hover);
+      box-shadow: 0 4px 12px rgba(2, 125, 252, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .module-left {
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
     }
 
     .module-header {
-      padding: 20px 24px;
       display: flex;
       align-items: center;
-      gap: 16px;
-      cursor: pointer;
-      user-select: none;
+      gap: 12px;
     }
 
     .module-number {
@@ -227,58 +284,32 @@
       color: var(--accent);
     }
 
-    .module-info {
-      flex: 1;
-      min-width: 0;
-    }
-
     .module-title {
       font-size: 16px;
       font-weight: 600;
-      margin-bottom: 2px;
+      line-height: 1.3;
+      min-width: 0;
     }
 
     .module-desc {
       font-size: 14px;
       color: var(--text-secondary);
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      line-height: 1.5;
     }
 
-    .module-toggle {
-      width: 32px;
-      height: 32px;
+    .module-video-side {
+      position: relative;
+      background: #f0f2f5;
+      border-left: 1px solid var(--border);
+      min-width: 0;
       display: flex;
       align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: transform 0.3s ease;
     }
 
-    .module-toggle svg {
-      width: 20px;
-      height: 20px;
-      color: var(--text-muted);
-    }
-
-    .module-card.open .module-toggle {
-      transform: rotate(180deg);
-    }
-
-    .module-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-    }
-
-    .module-card.open .module-body {
-      max-height: 2000px;
-    }
-
-    .video-wrapper {
-      padding: 0 24px 24px;
+    .module-video-side .video-container {
+      width: 100%;
+      border: 0;
+      border-radius: 0;
     }
 
     .video-container {
@@ -323,9 +354,13 @@
     }
 
     .module-note {
-      padding: 0 24px 16px;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-secondary);
+      padding: 10px 12px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(2, 125, 252, 0.15);
+      border-radius: 8px;
+      line-height: 1.5;
     }
 
     .module-note a {
@@ -342,10 +377,11 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 0 24px 20px;
       font-size: 14px;
       color: var(--text-secondary);
       cursor: pointer;
+      margin-top: auto;
+      padding-top: 4px;
     }
 
     .module-check input[type="checkbox"] {
@@ -377,6 +413,167 @@
       transform: rotate(45deg);
     }
 
+    /* Card grids (tabs 2, 3, 4) */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* Video cards (tabs 2 & 3) */
+    .video-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .video-card:hover {
+      border-color: rgba(2, 125, 252, 0.4);
+      box-shadow: 0 4px 12px rgba(2, 125, 252, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .video-card .video-container {
+      border-radius: 0;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-body {
+      padding: 18px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--text-primary);
+    }
+
+    .card-desc {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .card-badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+
+    .badge-topic {
+      background: var(--accent-glow);
+      border: 1px solid rgba(2, 125, 252, 0.2);
+      color: var(--accent);
+    }
+
+    .badge-lang {
+      background: #f0f2f5;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    /* Article cards (tab 4) */
+    .article-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .article-card:hover {
+      border-color: rgba(2, 125, 252, 0.4);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .article-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .article-favicon {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
+    .article-domain {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+
+    .article-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .article-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .article-head .card-title { font-size: 15px; }
+
+    .article-external {
+      flex-shrink: 0;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+    }
+
+    .article-external svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .article-card:hover .article-external { color: var(--accent); }
+
     /* Footer */
     .footer {
       text-align: center;
@@ -396,6 +593,41 @@
     }
 
     /* Responsive */
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 32px 20px 48px;
+      }
+      .sidebar {
+        position: static;
+        gap: 20px;
+      }
+      .tabs-nav {
+        flex-direction: row;
+        gap: 8px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        margin: 0 -20px;
+        padding: 0 20px 4px;
+      }
+      .tabs-nav::-webkit-scrollbar { display: none; }
+      .tab-btn {
+        flex-shrink: 0;
+        width: auto;
+        border-radius: 100px;
+        border-color: var(--border);
+        background: var(--bg-card);
+        white-space: nowrap;
+      }
+      .module-card { grid-template-columns: 1fr; }
+      .module-video-side {
+        border-left: 0;
+        border-bottom: 1px solid var(--border);
+        order: -1;
+      }
+    }
+
     @media (max-width: 600px) {
       .header { padding: 16px; }
       .logo { height: 28px; max-width: 110px; }
@@ -403,14 +635,14 @@
       .logo-left { padding-right: 16px; }
       .logo-right { padding-left: 16px; }
       .logo-divider { height: 32px; }
-      .hero { padding: 40px 16px 32px; }
-      .hero p { font-size: 15px; }
-      .modules { padding: 0 16px 48px; gap: 16px; }
-      .module-header { padding: 16px; gap: 12px; }
+      .layout { padding: 24px 16px 40px; gap: 24px; }
+      .tabs-nav { margin: 0 -16px; padding: 0 16px 4px; }
+      .tab-btn { padding: 8px 14px; font-size: 13px; }
+      .modules { gap: 16px; }
+      .module-left { padding: 18px; }
       .module-title { font-size: 15px; }
       .module-desc { font-size: 13px; }
-      .video-wrapper { padding: 0 16px 16px; }
-      .module-check { padding: 0 16px 16px; }
+      .card-grid { gap: 16px; grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -429,29 +661,71 @@
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-badge">Capacitação em IA</div>
-    <h1>AI 101 com Claude</h1>
-    <div class="hero-made-by">Made by <img src="assets/astralogo.avif" alt="Astra Studio" class="made-by-logo"></div>
-    <p>Aprenda a usar o Claude no seu dia a dia de trabalho. 7 vídeos curtos, ~5 minutos cada, direto ao ponto.</p>
-  </section>
+  <!-- Layout: sidebar (hero + pills) + main content -->
+  <div class="layout">
 
-  <!-- Progress -->
-  <section class="progress-section">
-    <div class="progress-bar-container">
-      <div class="progress-bar-fill" id="progress-fill"></div>
-    </div>
-    <div class="progress-label">
-      <span id="progress-text">0 de 0 concluídos</span>
-      <span id="progress-percent">0%</span>
-    </div>
-  </section>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-hero">
+        <div class="hero-badge">Capacitação em IA</div>
+        <h1>AI 101 com Claude</h1>
+        <div class="hero-made-by">Made by <img src="assets/astralogo.avif" alt="Astra Studio" class="made-by-logo"></div>
+        <p>Curadoria de conteúdo sobre Claude e IA para o time do Grupo Souza Leão. Tutoriais internos, referências externas, estratégia e artigos selecionados.</p>
+      </div>
 
-  <!-- Modules -->
-  <section class="modules" id="modules-container">
-    <!-- Modules are rendered by JS below -->
-  </section>
+      <nav class="tabs-nav" role="tablist">
+        <button class="tab-btn active" data-tab="claude-101" role="tab">Claude 101</button>
+        <button class="tab-btn" data-tab="tutoriais" role="tab">Tutoriais Avançados</button>
+        <button class="tab-btn" data-tab="negocios" role="tab">Negócios & Gestores</button>
+        <button class="tab-btn" data-tab="artigos" role="tab">Artigos</button>
+      </nav>
+    </aside>
+
+    <!-- Content area -->
+    <main class="content-area">
+
+      <!-- ============================================= -->
+      <!-- TAB 1: Claude 101 (vídeos internos + progresso) -->
+      <!-- ============================================= -->
+      <section class="tab-content active" id="tab-claude-101" role="tabpanel">
+        <div class="progress-section">
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+          </div>
+          <div class="progress-label">
+            <span id="progress-text">0 de 0 concluídos</span>
+            <span id="progress-percent">0%</span>
+          </div>
+        </div>
+
+        <div class="modules" id="modules-container">
+          <!-- Módulos renderizados via JS (veja array `modules` no script) -->
+        </div>
+      </section>
+
+      <!-- ============================================= -->
+      <!-- TAB 2: Tutoriais Avançados -->
+      <!-- ============================================= -->
+      <section class="tab-content" id="tab-tutoriais" role="tabpanel">
+        <div class="card-grid" id="tutoriais-container"></div>
+      </section>
+
+      <!-- ============================================= -->
+      <!-- TAB 3: Negócios & Gestores -->
+      <!-- ============================================= -->
+      <section class="tab-content" id="tab-negocios" role="tabpanel">
+        <div class="card-grid" id="negocios-container"></div>
+      </section>
+
+      <!-- ============================================= -->
+      <!-- TAB 4: Artigos -->
+      <!-- ============================================= -->
+      <section class="tab-content" id="tab-artigos" role="tabpanel">
+        <div class="card-grid" id="artigos-container"></div>
+      </section>
+
+    </main>
+  </div>
 
   <!-- Footer -->
   <footer class="footer">
@@ -460,12 +734,18 @@
 
   <script>
     // =============================================
-    // COURSE CONTENT — edit this array to add/update modules
+    // CONTEÚDO: edite as listas abaixo para adicionar/atualizar cards
     // =============================================
+
+    // ---------------------------------------------
+    // ABA 1: CLAUDE 101 (vídeos gravados internamente)
+    // Cada item vira um módulo expansível com checkbox de progresso.
+    // Para adicionar, copie um bloco { ... } e cole no final do array.
+    // ---------------------------------------------
     const modules = [
       {
         title: "Comece Aqui!",
-        desc: "Introdução ao programa AI 101 — o que você vai aprender, como funciona e por onde começar.",
+        desc: "Introdução ao programa AI 101: o que você vai aprender, como funciona e por onde começar.",
         icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
         video: "https://www.youtube.com/embed/M-wPuqUTnhI"
       },
@@ -477,7 +757,7 @@
       },
       {
         title: "Projetos",
-        desc: "Como criar e usar Projetos para organizar o Claude por área de trabalho — com instruções fixas de contexto e arquivos de referência carregados.",
+        desc: "Como criar e usar Projetos para organizar o Claude por área de trabalho, com instruções fixas de contexto e arquivos de referência carregados.",
         icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
         video: "https://www.youtube.com/embed/1Fs21o_UzDw"
       },
@@ -489,35 +769,167 @@
       },
       {
         title: "Skills",
-        desc: "Como usar a feature de Skills do Claude — o que são, como ativar e como aplicar em tarefas do dia a dia financeiro, com exemplos práticos de uso.",
+        desc: "Como usar a feature de Skills do Claude: o que são, como ativar e como aplicar em tarefas do dia a dia financeiro, com exemplos práticos de uso.",
         icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
-        video: "",
+        video: "https://www.youtube.com/embed/HwyxA-G2R6Y",
         note: 'Ferramenta para ditar prompts mencionada: <a href="https://wisprflow.ai/" target="_blank" rel="noopener">Wispr Flow</a>'
       },
       {
-        title: "Criando Documentos Word",
-        desc: "Como gerar documentos .docx prontos para usar — relatórios, comunicados, atas e modelos formatados, sem precisar abrir o Word do zero.",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',
-        video: ""
-      },
-      {
-        title: "Criando Apresentações",
-        desc: "Como usar o Claude para montar apresentações em PowerPoint — estrutura de slides, conteúdo e formatação gerados a partir de uma descrição simples.",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
-        video: ""
-      },
-      {
-        title: "Criando Planilhas",
-        desc: "Como pedir ao Claude para gerar planilhas Excel prontas — tabelas, fórmulas e estruturas de controle financeiro criadas diretamente para download.",
+        title: "Trabalhando com Planilhas",
+        desc: "Encontramos um ótimo vídeo explicando o Claude para Excel. Vale lembrar que todos os conceitos das aulas anteriores (Skills, Connectors, Projetos) funcionam junto: dá para criar, por exemplo, uma Skill que guia o Claude passo a passo na montagem de um dashboard.",
         icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>',
-        video: ""
+        video: "https://www.youtube.com/embed/neYs9ukustA"
+      }
+    ];
+
+    // ---------------------------------------------
+    // ABA 2: TUTORIAIS AVANÇADOS (vídeos externos)
+    // Campos: title, desc, video (URL de embed do YouTube), topic, lang ("pt" ou "en")
+    // Para adicionar um vídeo do YouTube, pegue a URL do vídeo (ex: https://www.youtube.com/watch?v=ABC123)
+    // e troque por: https://www.youtube.com/embed/ABC123
+    // ---------------------------------------------
+    const advancedTutorials = [
+      {
+        title: "Prompt Engineering com Claude",
+        desc: "Técnicas avançadas de prompting direto com a equipe da Anthropic: estrutura, exemplos e boas práticas.",
+        video: "https://www.youtube.com/embed/T9aRN5JkmL8",
+        topic: "Prompting",
+        lang: "en"
+      },
+      {
+        title: "Usando Artifacts na prática",
+        desc: "Como aproveitar a feature de Artifacts do Claude para gerar documentos, código e visualizações editáveis.",
+        video: "https://www.youtube.com/embed/3Gr6OJ1iRqI",
+        topic: "Produtividade",
+        lang: "pt"
+      },
+      {
+        title: "Claude Code para não-devs",
+        desc: "Introdução ao Claude Code no terminal: como automatizar tarefas repetitivas mesmo sem experiência em programação.",
+        video: "https://www.youtube.com/embed/6eBSHbLKuN0",
+        topic: "Automação",
+        lang: "pt"
+      }
+    ];
+
+    // ---------------------------------------------
+    // ABA 3: NEGÓCIOS & GESTORES
+    // Mesma estrutura da aba 2.
+    // ---------------------------------------------
+    const businessVideos = [
+      {
+        title: "IA para líderes: como pensar a empresa",
+        desc: "Panorama estratégico sobre como a IA está mudando modelos de negócio e como líderes devem se posicionar.",
+        video: "https://www.youtube.com/embed/GvezxUdLrEk",
+        topic: "Estratégia",
+        lang: "en"
+      },
+      {
+        title: "Construindo cultura de IA no time",
+        desc: "Como criar um ambiente em que a equipe experimenta, compartilha e evolui no uso de IA no dia a dia.",
+        video: "https://www.youtube.com/embed/qrvK_KuIeJk",
+        topic: "Cultura",
+        lang: "pt"
+      },
+      {
+        title: "ROI e adoção de IA em empresas",
+        desc: "Como medir retorno real de iniciativas de IA, onde começar e quais armadilhas evitar na implementação.",
+        video: "https://www.youtube.com/embed/5p248yoa3oE",
+        topic: "Gestão",
+        lang: "en"
+      },
+      {
+        title: "IA na prática para gestores",
+        desc: "Conversa sobre como gestores estão usando IA no dia a dia — decisões, produtividade e o que funciona de fato em empresas reais.",
+        video: "https://www.youtube.com/embed/EN7frwQIbKc",
+        topic: "Gestão",
+        lang: "pt"
+      },
+      {
+        title: "Satya Nadella: o futuro da IA e as mudanças nas empresas",
+        desc: "CEO da Microsoft fala sobre para onde a IA está indo, as mudanças culturais que ela exige dentro das organizações e as novas tecnologias que vêm junto.",
+        video: "https://www.youtube.com/embed/AUUZuzVHKdo",
+        topic: "Estratégia",
+        lang: "en"
+      }
+    ];
+
+    // ---------------------------------------------
+    // ABA 4: ARTIGOS (links externos, sem embed)
+    // Campos: title, desc, url (link do artigo), topic, lang ("pt" ou "en")
+    // ---------------------------------------------
+    const articles = [
+      {
+        title: "Good News: AI Will Eat Application Software",
+        desc: "Análise da Andreessen Horowitz (a16z) sobre como a IA está redefinindo o mercado de software: em vez de substituir trabalho, ela deve absorver o software tradicional — com implicações para quem compra, vende e constrói produtos SaaS.",
+        url: "https://a16z.com/good-news-ai-will-eat-application-software/",
+        topic: "Estratégia",
+        lang: "en"
+      },
+      {
+        title: "State of AI in Business 2025 (MIT)",
+        desc: "Estudo do MIT mostrando que 95% das empresas não encontram ROI com IA. Analisa como as poucas que conseguem estão operando de forma diferente — padrões de adoção, integração e cultura que separam quem tem retorno de quem não tem.",
+        url: "https://mlq.ai/media/quarterly_decks/v0.1_State_of_AI_in_Business_2025_Report.pdf",
+        topic: "Pesquisa",
+        lang: "en"
+      },
+      {
+        title: "Documentação oficial do Claude",
+        desc: "Referência completa da Anthropic sobre capacidades, boas práticas e exemplos de uso do Claude.",
+        url: "https://docs.claude.com/",
+        topic: "Documentação",
+        lang: "en"
+      },
+      {
+        title: "Guia de Prompt Engineering",
+        desc: "Manual aberto e atualizado com as melhores técnicas de prompting para diferentes modelos de IA.",
+        url: "https://www.promptingguide.ai/",
+        topic: "Prompting",
+        lang: "en"
+      },
+      {
+        title: "Como adotar IA generativa na sua empresa",
+        desc: "Artigo prático em português sobre os primeiros passos para empresas implementarem IA de forma consistente.",
+        url: "https://hbr.org/",
+        topic: "Estratégia",
+        lang: "pt"
       }
     ];
 
     // =============================================
-    // RENDER & INTERACTIVITY
+    // HELPERS
     // =============================================
-    const container = document.getElementById('modules-container');
+    const LANG_META = {
+      pt: { flag: "🇧🇷", label: "Português" },
+      en: { flag: "🇺🇸", label: "Inglês" }
+    };
+
+    function langBadge(lang) {
+      const meta = LANG_META[lang] || LANG_META.en;
+      return `<span class="badge badge-lang">${meta.flag} ${meta.label}</span>`;
+    }
+
+    function topicBadge(topic) {
+      return `<span class="badge badge-topic">${topic}</span>`;
+    }
+
+    function videoEmbed(url) {
+      if (!url) {
+        return `<div class="video-container"><div class="video-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span>Vídeo em breve</span>
+        </div></div>`;
+      }
+      if (url.match(/\.(mp4|webm|ogg)$/i)) {
+        return `<div class="video-container"><video controls preload="metadata" playsinline><source src="${url}" type="video/${url.split('.').pop()}"></video></div>`;
+      }
+      return `<div class="video-container"><iframe src="${url}" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe></div>`;
+    }
+
+    // =============================================
+    // CLAUDE 101: módulos com progresso
+    // =============================================
+    const modulesContainer = document.getElementById('modules-container');
     const STORAGE_KEY = 'ai101_progress';
 
     function getProgress() {
@@ -544,47 +956,27 @@
     function renderModules() {
       const progress = getProgress();
 
-      container.innerHTML = modules.map((mod, i) => {
+      modulesContainer.innerHTML = modules.map((mod, i) => {
         const checked = progress[i] ? 'checked' : '';
-        let videoHTML;
-        if (mod.video && mod.video.match(/\.(mp4|webm|ogg)$/i)) {
-          videoHTML = `<div class="video-container"><video controls preload="metadata" playsinline><source src="${mod.video}" type="video/${mod.video.split('.').pop()}"></video></div>`;
-        } else if (mod.video) {
-          videoHTML = `<div class="video-container"><iframe src="${mod.video}" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe></div>`;
-        } else {
-          videoHTML = `<div class="video-container"><div class="video-placeholder">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              <span>Vídeo em breve</span>
-            </div></div>`;
-        }
-
         return `
           <div class="module-card" id="module-${i}">
-            <div class="module-header" onclick="toggleModule(${i})">
-              <div class="module-number">${mod.icon}</div>
-              <div class="module-info">
+            <div class="module-left">
+              <div class="module-header">
+                <div class="module-number">${mod.icon}</div>
                 <div class="module-title">${mod.title}</div>
-                <div class="module-desc">${mod.desc}</div>
               </div>
-              <div class="module-toggle">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-            </div>
-            <div class="module-body">
-              <div class="video-wrapper">${videoHTML}</div>
+              <div class="module-desc">${mod.desc}</div>
               ${mod.note ? `<div class="module-note">${mod.note}</div>` : ''}
               <label class="module-check">
                 <input type="checkbox" ${checked} onchange="markComplete(${i}, this.checked)">
                 Marcar como concluído
               </label>
             </div>
+            <div class="module-video-side">
+              ${videoEmbed(mod.video)}
+            </div>
           </div>`;
       }).join('');
-    }
-
-    function toggleModule(index) {
-      const card = document.getElementById(`module-${index}`);
-      card.classList.toggle('open');
     }
 
     function markComplete(index, done) {
@@ -594,9 +986,87 @@
       updateProgressBar();
     }
 
+    // =============================================
+    // Render video cards (tabs 2 e 3)
+    // =============================================
+    function renderVideoCards(containerId, items) {
+      const el = document.getElementById(containerId);
+      el.innerHTML = items.map(item => `
+        <article class="video-card">
+          ${videoEmbed(item.video)}
+          <div class="card-body">
+            <h3 class="card-title">${item.title}</h3>
+            <p class="card-desc">${item.desc}</p>
+            <div class="card-badges">
+              ${topicBadge(item.topic)}
+              ${langBadge(item.lang)}
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // =============================================
+    // Render article cards (tab 4)
+    // =============================================
+    function getDomain(url) {
+      try { return new URL(url).hostname.replace(/^www\./, ''); }
+      catch { return ''; }
+    }
+
+    function faviconUrl(url) {
+      const domain = getDomain(url);
+      return domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64` : '';
+    }
+
+    function renderArticles(containerId, items) {
+      const el = document.getElementById(containerId);
+      el.innerHTML = items.map(item => {
+        const domain = getDomain(item.url);
+        const fav = faviconUrl(item.url);
+        return `
+          <a class="article-card" href="${item.url}" target="_blank" rel="noopener">
+            <div class="article-icon">
+              ${fav ? `<img class="article-favicon" src="${fav}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ''}
+            </div>
+            <div class="article-body">
+              <div class="article-head">
+                <h3 class="card-title">${item.title}</h3>
+                <span class="article-external" aria-label="Abre em nova aba">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </span>
+              </div>
+              <span class="article-domain">${domain}</span>
+              <p class="card-desc">${item.desc}</p>
+              <div class="card-badges">
+                ${topicBadge(item.topic)}
+                ${langBadge(item.lang)}
+              </div>
+            </div>
+          </a>
+        `;
+      }).join('');
+    }
+
+    // =============================================
+    // Tab switching
+    // =============================================
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id === `tab-${target}`));
+      });
+    });
+
+    // =============================================
     // Init
+    // =============================================
     renderModules();
     updateProgressBar();
+    renderVideoCards('tutoriais-container', advancedTutorials);
+    renderVideoCards('negocios-container', businessVideos);
+    renderArticles('artigos-container', articles);
   </script>
 </body>
 </html>
