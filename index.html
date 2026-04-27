@@ -137,10 +137,7 @@
       font-size: clamp(24px, 2.1vw, 30px);
       font-weight: 700;
       line-height: 1.15;
-      background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text-primary);
     }
 
     .hero-made-by {
@@ -172,7 +169,7 @@
     .tab-btn {
       width: 100%;
       text-align: left;
-      padding: 10px 14px;
+      padding: 10px 14px 10px 14px;
       border-radius: 10px;
       border: 1px solid transparent;
       background: transparent;
@@ -181,7 +178,8 @@
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: background 0.15s, color 0.15s, border-color 0.15s, padding-left 0.15s;
+      position: relative;
     }
 
     .tab-btn:hover {
@@ -190,9 +188,12 @@
     }
 
     .tab-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: white;
+      background: var(--accent-glow);
+      color: var(--accent);
+      font-weight: 600;
+      border-left: 3px solid var(--accent);
+      padding-left: 12px;
+      border-radius: 8px;
     }
 
     .tab-content { display: none; }
@@ -247,9 +248,14 @@
     }
 
     .module-card:hover {
-      border-color: rgba(2, 125, 252, 0.4);
-      box-shadow: 0 4px 12px rgba(2, 125, 252, 0.08);
+      border-color: var(--border);
+      box-shadow: 0 8px 24px rgba(15, 15, 40, 0.08);
       transform: translateY(-2px);
+    }
+
+    .module-card:has(input[type="checkbox"]:checked) {
+      border-color: rgba(2, 125, 252, 0.45);
+      box-shadow: 0 1px 3px rgba(2, 125, 252, 0.1);
     }
 
     .module-left {
@@ -453,6 +459,7 @@
 
     /* Video cards (tabs 2 & 3) */
     .video-card {
+      position: relative;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
@@ -460,13 +467,52 @@
       display: flex;
       flex-direction: column;
       transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      box-shadow: 0 1px 3px rgba(15, 15, 40, 0.04);
     }
 
     .video-card:hover {
-      border-color: rgba(2, 125, 252, 0.4);
-      box-shadow: 0 4px 12px rgba(2, 125, 252, 0.08);
+      border-color: var(--border);
+      box-shadow: 0 8px 24px rgba(15, 15, 40, 0.08);
       transform: translateY(-2px);
+    }
+
+    .video-card.watched {
+      opacity: 0.7;
+    }
+
+    .video-card.watched:hover {
+      opacity: 1;
+    }
+
+    .watched-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #16a34a;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .watched-badge svg {
+      width: 14px;
+      height: 14px;
+      stroke: #fff;
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .video-card:not(.watched) .watched-badge {
+      display: none;
     }
 
     .video-card .video-container {
@@ -543,8 +589,9 @@
     }
 
     .article-card:hover {
-      border-color: rgba(2, 125, 252, 0.4);
+      border-color: var(--border);
       background: var(--bg-card-hover);
+      box-shadow: 0 8px 24px rgba(15, 15, 40, 0.08);
       transform: translateY(-2px);
     }
 
@@ -651,6 +698,14 @@
         background: var(--bg-card);
         white-space: nowrap;
       }
+      .tab-btn.active {
+        border-left: 1px solid var(--accent);
+        padding-left: 14px;
+        border-radius: 100px;
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+      }
       .module-card { grid-template-columns: 1fr; }
       .module-video-side {
         border-left: 0;
@@ -674,6 +729,125 @@
       .module-title { font-size: 15px; }
       .module-desc { font-size: 13px; }
       .card-grid { gap: 16px; grid-template-columns: 1fr; }
+      .filter-bar { gap: 6px; }
+      .filter-chip { font-size: 12px; padding: 5px 10px; }
+    }
+
+    /* Filter bar (tabs 2, 3, 4) */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .filter-group-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
+
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-chip:hover {
+      border-color: rgba(2, 125, 252, 0.35);
+      color: var(--accent);
+    }
+
+    .filter-chip.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .filter-chip.active:hover {
+      color: #fff;
+    }
+
+    .filter-divider {
+      width: 1px;
+      height: 18px;
+      background: var(--border);
+      margin: 0 4px;
+    }
+
+    .filter-empty {
+      padding: 36px 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Stagger entrance for cards */
+    @keyframes card-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .video-card,
+    .article-card,
+    .module-card {
+      animation: card-in 0.32s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+      animation-delay: calc(var(--i, 0) * 50ms);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .video-card,
+      .article-card,
+      .module-card {
+        animation: none;
+      }
+    }
+
+    /* Thumbnail skeleton shimmer */
+    .video-container {
+      background: linear-gradient(90deg, #eef0f4 0%, #f6f7fb 50%, #eef0f4 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .video-container.video-yt:has(img.yt-thumb.loaded),
+    .video-container:has(iframe),
+    .video-container:has(video) {
+      animation: none;
+      background: #f0f2f5;
+    }
+
+    /* Focus-visible accessibility */
+    :focus { outline: none; }
+
+    .tab-btn:focus-visible,
+    .filter-chip:focus-visible,
+    .module-check input[type="checkbox"]:focus-visible,
+    .video-yt:focus-visible,
+    .article-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
   </style>
 </head>
@@ -934,6 +1108,13 @@
     // ---------------------------------------------
     const articles = [
       {
+        title: "From Hierarchy to Intelligence",
+        desc: "Hoje as empresas funcionam por hierarquia: diretores, gerentes e camadas de pessoas repassando informação para coordenar o trabalho. A Sequoia argumenta que a IA pode assumir boa parte desse papel de coordenação: em vez de várias camadas de gestão intermediária, um sistema de IA acompanha o que está acontecendo em tempo real e ajuda a decidir mais rápido, mais perto de quem realmente executa. Empresas como a Block já começaram a se reorganizar em torno dessa lógica.",
+        url: "https://sequoiacap.com/article/from-hierarchy-to-intelligence/",
+        topic: "Estratégia",
+        lang: "en"
+      },
+      {
         title: "Good News: AI Will Eat Application Software",
         desc: "Análise da Andreessen Horowitz (a16z) sobre como a IA está redefinindo o mercado de software: em vez de substituir trabalho, ela deve absorver o software tradicional, com implicações para quem compra, vende e constrói produtos SaaS.",
         url: "https://a16z.com/good-news-ai-will-eat-application-software/",
@@ -945,13 +1126,6 @@
         desc: "Estudo do MIT mostrando que 95% das empresas não encontram ROI com IA. Analisa como as poucas que conseguem estão operando de forma diferente: padrões de adoção, integração e cultura que separam quem tem retorno de quem não tem.",
         url: "https://mlq.ai/media/quarterly_decks/v0.1_State_of_AI_in_Business_2025_Report.pdf",
         topic: "Pesquisa",
-        lang: "en"
-      },
-      {
-        title: "From Hierarchy to Intelligence",
-        desc: "Ensaio da Sequoia Capital defendendo que a IA pode substituir a hierarquia tradicional como mecanismo de coordenação nas empresas. Em vez de apenas aumentar produtividade, organizações como a Block estão se reestruturando em torno de modelos contínuos de operação, acelerando decisões sem camadas de gestão intermediária.",
-        url: "https://sequoiacap.com/article/from-hierarchy-to-intelligence/",
-        topic: "Estratégia",
         lang: "en"
       },
       {
@@ -1050,7 +1224,7 @@
       modulesContainer.innerHTML = modules.map((mod, i) => {
         const checked = progress[i] ? 'checked' : '';
         return `
-          <div class="module-card" id="module-${i}">
+          <div class="module-card" id="module-${i}" style="--i:${i}">
             <div class="module-left">
               <div class="module-header">
                 <div class="module-number">${mod.icon}</div>
@@ -1078,12 +1252,112 @@
     }
 
     // =============================================
+    // Watched videos (localStorage)
+    // =============================================
+    const WATCHED_KEY = 'ai101_watched';
+    function getWatched() {
+      try { return JSON.parse(localStorage.getItem(WATCHED_KEY)) || {}; }
+      catch { return {}; }
+    }
+    function saveWatched(w) { localStorage.setItem(WATCHED_KEY, JSON.stringify(w)); }
+    function isWatched(url) { return !!getWatched()[url]; }
+    function setWatched(url, val) {
+      const w = getWatched();
+      if (val) w[url] = true; else delete w[url];
+      saveWatched(w);
+    }
+
+    // =============================================
+    // Filter state per container
+    // =============================================
+    const tabFilters = {};
+    function getFilterState(containerId, hasWatched) {
+      if (!tabFilters[containerId]) {
+        tabFilters[containerId] = { topic: 'all', lang: 'all', unwatched: false, hasWatched };
+      }
+      return tabFilters[containerId];
+    }
+
+    function uniqueTopics(items) {
+      return [...new Set(items.map(i => i.topic))];
+    }
+
+    function renderFilterBar(containerId, items, state) {
+      const topics = uniqueTopics(items);
+      const chips = [];
+      // Topic filters
+      chips.push(`<span class="filter-group-label">Tópico</span>`);
+      chips.push(`<button class="filter-chip ${state.topic === 'all' ? 'active' : ''}" data-filter-type="topic" data-filter-value="all">Todos</button>`);
+      topics.forEach(t => {
+        chips.push(`<button class="filter-chip ${state.topic === t ? 'active' : ''}" data-filter-type="topic" data-filter-value="${t}">${t}</button>`);
+      });
+      chips.push(`<span class="filter-divider"></span>`);
+      // Language filters
+      chips.push(`<span class="filter-group-label">Idioma</span>`);
+      chips.push(`<button class="filter-chip ${state.lang === 'all' ? 'active' : ''}" data-filter-type="lang" data-filter-value="all">Todos</button>`);
+      chips.push(`<button class="filter-chip ${state.lang === 'pt' ? 'active' : ''}" data-filter-type="lang" data-filter-value="pt">🇧🇷 PT</button>`);
+      chips.push(`<button class="filter-chip ${state.lang === 'en' ? 'active' : ''}" data-filter-type="lang" data-filter-value="en">🇺🇸 EN</button>`);
+      // Watched toggle (videos only)
+      if (state.hasWatched) {
+        chips.push(`<span class="filter-divider"></span>`);
+        chips.push(`<button class="filter-chip ${state.unwatched ? 'active' : ''}" data-filter-type="unwatched" data-filter-value="toggle">Não assistidos</button>`);
+      }
+      return `<div class="filter-bar" id="${containerId}-filters">${chips.join('')}</div>`;
+    }
+
+    function ensureFilterBar(containerId, items, state) {
+      const grid = document.getElementById(containerId);
+      const existing = document.getElementById(`${containerId}-filters`);
+      if (existing) existing.remove();
+      grid.insertAdjacentHTML('beforebegin', renderFilterBar(containerId, items, state));
+      bindFilterBar(containerId, items, state);
+    }
+
+    function bindFilterBar(containerId, items, state) {
+      const bar = document.getElementById(`${containerId}-filters`);
+      if (!bar) return;
+      bar.addEventListener('click', (e) => {
+        const chip = e.target.closest('.filter-chip');
+        if (!chip) return;
+        const type = chip.dataset.filterType;
+        const value = chip.dataset.filterValue;
+        if (type === 'unwatched') state.unwatched = !state.unwatched;
+        else state[type] = value;
+        // Re-render this tab
+        if (state.hasWatched) renderVideoCards(containerId, items);
+        else renderArticles(containerId, items);
+      });
+    }
+
+    function applyFilters(items, state, urlField) {
+      const watched = getWatched();
+      return items.filter(item => {
+        if (state.topic !== 'all' && item.topic !== state.topic) return false;
+        if (state.lang !== 'all' && item.lang !== state.lang) return false;
+        if (state.unwatched && watched[item[urlField]]) return false;
+        return true;
+      });
+    }
+
+    // =============================================
     // Render video cards (tabs 2 e 3)
     // =============================================
     function renderVideoCards(containerId, items) {
+      const state = getFilterState(containerId, true);
+      ensureFilterBar(containerId, items, state);
+      const filtered = applyFilters(items, state, 'video');
       const el = document.getElementById(containerId);
-      el.innerHTML = items.map(item => `
-        <article class="video-card">
+      if (filtered.length === 0) {
+        el.innerHTML = `<div class="filter-empty">Nenhum vídeo encontrado com esses filtros.</div>`;
+        return;
+      }
+      el.innerHTML = filtered.map((item, i) => {
+        const watched = isWatched(item.video) ? ' watched' : '';
+        return `
+        <article class="video-card${watched}" data-video-url="${item.video}" style="--i:${i}">
+          <span class="watched-badge" aria-label="Assistido">
+            <svg viewBox="0 0 24 24"><polyline points="4 12 10 18 20 6"></polyline></svg>
+          </span>
           ${videoEmbed(item.video, item.title, item.thumb)}
           <div class="card-body">
             <h3 class="card-title">${item.title}</h3>
@@ -1093,8 +1367,10 @@
               ${langBadge(item.lang)}
             </div>
           </div>
-        </article>
-      `).join('');
+        </article>`;
+      }).join('');
+      bindAllThumbFallbacks();
+      bindThumbLoadStates();
     }
 
     // =============================================
@@ -1111,12 +1387,19 @@
     }
 
     function renderArticles(containerId, items) {
+      const state = getFilterState(containerId, false);
+      ensureFilterBar(containerId, items, state);
+      const filtered = applyFilters(items, state, 'url');
       const el = document.getElementById(containerId);
-      el.innerHTML = items.map(item => {
+      if (filtered.length === 0) {
+        el.innerHTML = `<div class="filter-empty">Nenhum artigo encontrado com esses filtros.</div>`;
+        return;
+      }
+      el.innerHTML = filtered.map((item, i) => {
         const domain = getDomain(item.url);
         const fav = faviconUrl(item.url);
         return `
-          <a class="article-card" href="${item.url}" target="_blank" rel="noopener">
+          <a class="article-card" href="${item.url}" target="_blank" rel="noopener" style="--i:${i}">
             <div class="article-icon">
               ${fav ? `<img class="article-favicon" src="${fav}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ''}
             </div>
@@ -1151,13 +1434,23 @@
     });
 
     // =============================================
-    // YouTube click-to-play: swap thumbnail for iframe
+    // YouTube click-to-play: swap thumbnail for iframe + mark watched
     // =============================================
+    function playVideo(container) {
+      const url = container.dataset.ytUrl;
+      container.innerHTML = `<iframe src="${url}?autoplay=1" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>`;
+      const card = container.closest('.video-card');
+      if (card && !card.classList.contains('watched')) {
+        card.classList.add('watched');
+        const videoUrl = card.dataset.videoUrl;
+        if (videoUrl) setWatched(videoUrl, true);
+      }
+    }
+
     document.addEventListener('click', e => {
       const container = e.target.closest('.video-yt');
       if (!container) return;
-      const url = container.dataset.ytUrl;
-      container.innerHTML = `<iframe src="${url}?autoplay=1" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>`;
+      playVideo(container);
     });
 
     document.addEventListener('keydown', e => {
@@ -1165,16 +1458,17 @@
       const container = e.target.closest('.video-yt');
       if (!container) return;
       e.preventDefault();
-      const url = container.dataset.ytUrl;
-      container.innerHTML = `<iframe src="${url}?autoplay=1" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>`;
+      playVideo(container);
     });
 
     // =============================================
     // YouTube thumbnail fallback: maxresdefault → hqdefault → mqdefault
     // =============================================
     function attachThumbFallback(img) {
+      if (img.dataset.fallbackBound) return;
       const ytId = img.dataset.ytId;
       if (!ytId) return;
+      img.dataset.fallbackBound = '1';
       const fallbacks = [
         `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
         `https://img.youtube.com/vi/${ytId}/mqdefault.jpg`
@@ -1193,6 +1487,17 @@
       document.querySelectorAll('img.yt-thumb[data-yt-id]').forEach(attachThumbFallback);
     }
 
+    // Mark thumbs as loaded so the shimmer skeleton stops
+    function bindThumbLoadStates() {
+      document.querySelectorAll('img.yt-thumb').forEach(img => {
+        if (img.dataset.loadBound) return;
+        img.dataset.loadBound = '1';
+        const markLoaded = () => img.classList.add('loaded');
+        if (img.complete && img.naturalWidth > 0) markLoaded();
+        else img.addEventListener('load', markLoaded, { once: true });
+      });
+    }
+
     // =============================================
     // Init
     // =============================================
@@ -1202,6 +1507,7 @@
     renderVideoCards('negocios-container', businessVideos);
     renderArticles('artigos-container', articles);
     bindAllThumbFallbacks();
+    bindThumbLoadStates();
   </script>
 </body>
 </html>
