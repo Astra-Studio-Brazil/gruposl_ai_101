@@ -27,6 +27,11 @@
       --radius-lg: 16px;
     }
 
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-primary);
@@ -49,6 +54,7 @@
 
     .header-inner {
       max-width: 960px;
+      width: 100%;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -106,6 +112,7 @@
       display: flex;
       flex-direction: column;
       gap: 28px;
+      min-width: 0;
     }
 
     .content-area {
@@ -138,6 +145,11 @@
       font-weight: 700;
       line-height: 1.15;
       color: var(--text-primary);
+      overflow-wrap: break-word;
+    }
+
+    .sidebar-hero p {
+      overflow-wrap: break-word;
     }
 
     .hero-made-by {
@@ -164,6 +176,7 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
+      min-width: 0;
     }
 
     .tab-btn {
@@ -245,6 +258,7 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.04);
       display: grid;
       grid-template-columns: 1fr 1fr;
+      min-width: 0;
     }
 
     .module-card:hover {
@@ -468,6 +482,7 @@
       flex-direction: column;
       transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
       box-shadow: 0 1px 3px rgba(15, 15, 40, 0.04);
+      min-width: 0;
     }
 
     .video-card:hover {
@@ -534,6 +549,7 @@
       font-weight: 600;
       line-height: 1.35;
       color: var(--text-primary);
+      overflow-wrap: break-word;
     }
 
     .card-desc {
@@ -541,6 +557,7 @@
       color: var(--text-secondary);
       line-height: 1.5;
       flex: 1;
+      overflow-wrap: break-word;
     }
 
     .card-badges {
@@ -586,6 +603,7 @@
       color: inherit;
       transition: border-color 0.2s, background 0.2s, transform 0.2s;
       box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      min-width: 0;
     }
 
     .article-card:hover {
@@ -742,6 +760,7 @@
       margin-bottom: 20px;
       padding-bottom: 16px;
       border-bottom: 1px solid var(--border);
+      min-width: 0;
     }
 
     .filter-group-label {
